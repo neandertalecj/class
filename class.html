@@ -1,0 +1,108 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Vue</title>
+		
+		<style>
+			
+			body{
+				margin: 40px;
+			}
+			input{
+				outline: none;
+			}
+			
+		</style>
+	</head>
+	<body>
+		<h3>Д.Лаврик. Class</h3>
+		<input type="text" class="test"> </br></br>
+		<input type="text" class="test"> </br></br>
+		<input type="text" class="test"> </br>
+		<hr>
+		<input type="text" class="test2"> </br></br>
+		<input type="text" class="test2"> </br></br>
+		<input type="text" class="test2"> </br>
+
+	</body>
+		
+	<script>
+	// ------------------------------------------------------------------
+		var tests = document.querySelectorAll('.test');
+		console.log(tests);
+
+		for(var i = 0; i<tests.length; i++){
+			tests[i].addEventListener('focus', function(){
+				console.log(this);
+				this.style.border = '3px solid pink';
+			})
+		}
+		for(var i = 0; i<tests.length; i++){
+			tests[i].addEventListener('blur', function(){
+				console.log(this);
+				this.style.border = '2px solid blue';
+			})
+		}
+// --------------------Class---------------------------------------------
+		class EventInput{
+			constructor(elems){
+				this.elems = document.querySelectorAll(elems);
+			}
+			on(event, callback){
+				for(let i=0; i<this.elems.length; i++){
+					this.elems[i].addEventListener(event, callback);
+				}
+				return this // For what? - 'on' works without 'this'
+			}
+		}//end Class
+
+		var el = new EventInput('.test2');
+		el.on('focus', function(){
+				this.style.border = '3px solid yellow';
+		});
+		el.on('blur', function(){
+				this.style.border = '3px solid green';
+		}); //el.on(..).on(..) - In one line does not wont to work.
+		//-----------------------------------------------------------------
+		class Animal {
+			constructor(age){
+				this.age = age;
+			}
+			eat(){
+				console.log('Ham-ham');
+			}
+		};
+
+		class Cat extends Animal {
+			constructor(age){
+				super(age);
+				this.mestache = true;
+			}
+			getVoice(){
+				return 'mau - mau'
+			}
+		}
+
+		var catMusja = new Cat(10);
+		console.log(catMusja);
+		console.log(catMusja.age);//10
+
+		catMusja.eat(); //Ham-ham
+
+// ---------------Old Class----------------------------------------
+		function Animals(){
+			this.age = 11;
+			this.a = function(){
+				console.log('Im old Class');
+			}
+		}
+
+		function Caw(name){
+			this.name = name;
+		}
+		
+		Caw.prototype = new Animals();
+		var caw = new Caw('Kalyna');
+		console.log(caw);
+	</script>
+</html>
